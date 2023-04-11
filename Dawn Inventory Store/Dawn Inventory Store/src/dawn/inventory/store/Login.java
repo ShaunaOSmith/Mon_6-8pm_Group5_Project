@@ -308,44 +308,41 @@ ResultSet Rs=null;
 
     private void LoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LoginMouseClicked
         // TODO add your handling code here:
-      if(Role.getSelectedItem().toString().equals("Admin")){        
-          String Query= "select * from User1.ADMINTB where ADMINNAME='"+ UID.getText()+"' and ADMINPASS='" + password.getText() + "'";
-       
-          try {
-              Con =DriverManager.getConnection("jdbc:derby://localhost:1527/InventoryDB","User1","1234");
-                St= Con.createStatement();
-                Rs= St.executeQuery(Query);
-                if(Rs.next()){
-                    new Products().setVisible(true);
-                    this.dispose();
-                }else{
-                    JOptionPane.showMessageDialog(this, "Wrong Admin Id or Password");
-            }           
-            }catch(SQLException ex){
-                ex.printStackTrace();
-            } 
-      } else {
-          {
-         
-              String Query= "select * from User1.CASHIERTB where CASNAME='"+ UID.getText()+"' and CASPASS='" + password.getText() + "'";
-              try{
-                  Con =DriverManager.getConnection("jdbc:derby://localhost:1527/InventoryDB","User1","1234");
-                  St= Con.createStatement();
-                  Rs= St.executeQuery(Query);
-                  if(Rs.next()){
-                      new POS().setVisible(true);
-                      this.dispose();
-                  }else{
-                      JOptionPane.showMessageDialog(this, "Wrong Cashier Id or Password");
-                  }
-              }catch(SQLException ex){
-                  ex.printStackTrace();
-              }
-              
-              
-          }
+      if(Role.getSelectedItem().toString().equals("CASHIER")){    
+         String Query= "select * from User1.CASHIERTB where CASNAME='"+ UID.getText()+"' and CASPASS='" + password.getText() + "'";
+        try{
+            Con =DriverManager.getConnection("jdbc:derby://localhost:1527/InventoryDB","User1","1234");
+            St= Con.createStatement();
+            Rs= St.executeQuery(Query);
+            if(Rs.next()){
+                new POS().setVisible(true);
+                this.dispose();
+            }else{
+                JOptionPane.showMessageDialog(this, "Wrong Cashier Id or Password");
+            }
+        }catch(SQLException ex){
+            ex.printStackTrace();
         }
-      
+     }else if(Role.getSelectedItem().toString().equals("ADMIN")) {
+        String Query= "select * from User1.ADMINTB where ADMINNAME='"+ UID.getText()+"' and ADMINPASS='" + password.getText() + "'";
+       
+        try {
+            Con =DriverManager.getConnection("jdbc:derby://localhost:1527/InventoryDB","User1","1234");
+            St= Con.createStatement();
+            Rs= St.executeQuery(Query);
+            if(Rs.next()){
+                new Products().setVisible(true);
+                this.dispose();
+            }else{
+                JOptionPane.showMessageDialog(this, "Wrong Admin Id or Password");
+            }           
+        }catch(SQLException ex){
+            ex.printStackTrace();
+        } 
+   
+        
+    }
+        
         
     }//GEN-LAST:event_LoginMouseClicked
 
